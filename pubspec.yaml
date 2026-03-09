@@ -62,7 +62,7 @@ flutter:
 
   assets:
     - assets/data/ambiences.json
-    - assets/audio/ambient_loop.wav
+    - assets/audio/idoberg-ambient-pads-loop-296968.wav
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

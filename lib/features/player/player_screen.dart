@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 import '../../core/widgets/ambience_widgets.dart';
 import '../../core/widgets/formatters.dart';
@@ -77,7 +78,8 @@ class _PlayerScreenState extends State<PlayerScreen>
       builder: (_, __) {
         final totalSeconds = controller.total.inSeconds.toDouble();
         return Scaffold(
-          appBar: AppBar(title: const Text('Session Player')),
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(title: const Text('Session Player',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),backgroundColor: paletteFor(ambience.image)[0],elevation: 0,leading: IconButton(onPressed: ()=>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios,color: Colors.white,)),),
           body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -167,6 +169,9 @@ class _PlayerScreenState extends State<PlayerScreen>
                     ),
                     const Spacer(),
                     OutlinedButton(
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(Colors.white54)
+                      ),
                       onPressed: () async {
                         final shouldEnd = await showDialog<bool>(
                           context: context,
@@ -192,7 +197,7 @@ class _PlayerScreenState extends State<PlayerScreen>
                         final ended = controller.consumePendingReflection();
                         if (ended != null) widget.onSessionEnded(ended);
                       },
-                      child: const Text('End Session'),
+                      child: const Text('End Session',style: TextStyle(color: Colors.white),),
                     ),
                   ],
                 ),
@@ -230,36 +235,52 @@ class MiniPlayerBar extends StatelessWidget {
       elevation: 12,
       child: InkWell(
         onTap: onTap,
-        child: Container(
-          color: Colors.white,
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          child: AnimatedBuilder(
-            animation: controller,
-            builder: (_, __) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          controller.current!.title,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+        child: SafeArea(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withAlpha(12),
+                  blurRadius: 12,
+                  spreadRadius: 4,
+                  offset: const Offset(0, -2),
+                ),
+              ]
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            child: AnimatedBuilder(
+              animation: controller,
+              builder: (_, __) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            controller.current!.title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
-                      ),
-                      IconButton(
-                        onPressed: controller.togglePlayPause,
-                        icon: Icon(
-                          controller.isPlaying ? Icons.pause : Icons.play_arrow,
+                        IconButton(
+                          onPressed: controller.togglePlayPause,
+                          icon: Icon(
+                            controller.isPlaying ? Icons.pause : Icons.play_arrow,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  LinearProgressIndicator(value: max == 0 ? 0 : (value / max)),
-                ],
-              );
-            },
+                      ],
+                    ),
+                    LinearProgressIndicator(value: max == 0 ? 0 : (value / max)),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

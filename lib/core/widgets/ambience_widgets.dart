@@ -65,10 +65,21 @@ class AmbienceCard extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(14),
       onTap: onTap,
-      child: Ink(
+      child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(14),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withAlpha(12),
+              blurRadius: 12,
+            ),
+          ],
+          gradient: LinearGradient(
+            colors: paletteFor(ambience.image),
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          )
         ),
         child: Row(
           children: [
@@ -97,6 +108,7 @@ class AmbienceCard extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
+                        color: Colors.white,
                       ),
                     ),
                     const SizedBox(height: 6),
@@ -107,7 +119,7 @@ class AmbienceCard extends StatelessWidget {
                           visualDensity: VisualDensity.compact,
                         ),
                         const SizedBox(width: 8),
-                        Text('${ambience.durationMinutes} min'),
+                        Text('${ambience.durationMinutes} min',style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w600),),
                       ],
                     ),
                   ],

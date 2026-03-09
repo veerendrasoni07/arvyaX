@@ -1,4 +1,6 @@
-﻿import 'package:flutter/material.dart';
+﻿import 'dart:ui';
+
+import 'package:flutter/material.dart';
 
 import '../../core/widgets/ambience_widgets.dart';
 import '../../data/models/ambience.dart';
@@ -53,122 +55,170 @@ class AmbienceScreen extends StatelessWidget {
         }
 
         final filtered = ambienceController.filtered;
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('Ambience Library'),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => JournalScreen(
-                        controller: journalController,
-                        playerController: playerController,
-                      ),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.menu_book_outlined),
-              ),
-            ],
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                TextField(
-                  decoration: const InputDecoration(
-                    hintText: 'Search ambience',
-                    prefixIcon: Icon(Icons.search),
+        return GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: Scaffold(
+            body: CustomScrollView(
+              slivers: [
+
+                /// APP BAR
+                SliverAppBar(
+                  floating: true,
+                  pinned: true,
+                  expandedHeight: 180,
+                  elevation: 0,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  title: const Text(
+                    "Ambience Library",
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  onChanged: ambienceController.setQuery,
-                ),
-                const SizedBox(height: 12),
-                SizedBox(
-                  height: 42,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (_, i) {
-                      final tag = ambienceController.tags[i];
-                      return ChoiceChip(
-                        selected: tag == ambienceController.tag,
-                        label: Text(tag),
-                        onSelected: (_) => ambienceController.setTag(tag),
-                      );
-                    },
-                    separatorBuilder: (_, __) => const SizedBox(width: 8),
-                    itemCount: ambienceController.tags.length,
-                  ),
-                ),
-                const SizedBox(height: 14),
-                Expanded(
-                  child: filtered.isEmpty
-                      ? const Center(
-                          child: Text('No ambiences found. Try another search or filter.'),
-                        )
-                      : ListView.separated(
-                          itemBuilder: (_, index) {
-                            final ambience = filtered[index];
-                            return AmbienceCard(
-                              ambience: ambience,
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => AmbienceDetailsScreen(
-                                      ambience: ambience,
-                                      playerController: playerController,
-                                      journalController: journalController,
-                                    ),
-                                  ),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.menu_book_outlined),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => JournalScreen(
+                              controller: journalController,
+                              playerController: playerController,
+                            ),
+                          ),
+                        );
+                      },
+                    )
+                  ],
+
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
+                      child: Column(
+                        children: [
+
+                          /// SEARCH BAR
+                          Container(
+                            height: 48,
+                            decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            child: TextField(
+                              onChanged: ambienceController.setQuery,
+                              decoration: const InputDecoration(
+                                hintText: "Search ambience",
+                                prefixIcon: Icon(Icons.search),
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.symmetric(vertical: 14),
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(height: 12),
+
+                          /// FILTER CHIPS
+                          SizedBox(
+                            height: 40,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: ambienceController.tags.length,
+                              separatorBuilder: (_, __) => const SizedBox(width: 8),
+                              itemBuilder: (_, i) {
+                                final tag = ambienceController.tags[i];
+
+                                return ChoiceChip(
+                                  selected: tag == ambienceController.tag,
+                                  label: Text(tag),
+                                  onSelected: (_) =>
+                                      ambienceController.setTag(tag),
                                 );
                               },
-                            );
-                          },
-                          separatorBuilder: (_, __) => const SizedBox(height: 12),
-                          itemCount: filtered.length,
-                        ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                /// LIST
+                SliverPadding(
+                  padding: const EdgeInsets.all(16),
+                  sliver: filtered.isEmpty
+                      ? const SliverFillRemaining(
+                    child: Center(
+                      child: Text(
+                        "No ambiences found. Try another search or filter.",
+                      ),
+                    ),
+                  )
+                      : SliverList.separated(
+                    itemCount: filtered.length,
+                    separatorBuilder: (_, __) =>
+                    const SizedBox(height: 12),
+                    itemBuilder: (_, index) {
+                      final ambience = filtered[index];
+
+                      return AmbienceCard(
+                        ambience: ambience,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => AmbienceDetailsScreen(
+                                ambience: ambience,
+                                playerController: playerController,
+                                journalController: journalController,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
-          ),
-          bottomNavigationBar: MiniPlayerBar(
-            controller: playerController,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => PlayerScreen(
-                    controller: playerController,
-                    initialAmbience: playerController.current,
-                    onSessionEnded: (ambience) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => ReflectionScreen(
-                            ambience: ambience,
-                            journalController: journalController,
-                            onSaved: () {
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => JournalScreen(
-                                    controller: journalController,
-                                    playerController: playerController,
+
+            bottomNavigationBar: MiniPlayerBar(
+              controller: playerController,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => PlayerScreen(
+                      controller: playerController,
+                      initialAmbience: playerController.current,
+                      onSessionEnded: (ambience) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => ReflectionScreen(
+                              ambience: ambience,
+                              journalController: journalController,
+                              onSaved: () {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => JournalScreen(
+                                      controller: journalController,
+                                      playerController: playerController,
+                                    ),
                                   ),
-                                ),
-                                (route) => route.isFirst,
-                              );
-                            },
+                                      (route) => route.isFirst,
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         );
       },
@@ -219,7 +269,8 @@ class AmbienceDetailsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Details'),
+        title:  Text('Details',style: TextStyle(fontWeight: FontWeight.bold),),
+        leading: IconButton(onPressed: ()=>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios)),
         actions: [
           IconButton(
             onPressed: () {

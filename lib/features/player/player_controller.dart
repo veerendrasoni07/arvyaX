@@ -16,7 +16,7 @@ class PlayerController extends ChangeNotifier {
 
   final AudioService _audioService;
   final StorageService _storageService;
-  final String _audioAsset = 'assets/audio/ambient_loop.wav';
+  final String _audioAsset = 'assets/audio/idoberg-ambient-pads-loop-296968.wav';
 
   Timer? _timer;
   Ambience? _current;
