@@ -1,0 +1,56 @@
+[
+  {
+    "id": "rain_focus",
+    "title": "Rain On Glass",
+    "tag": "Focus",
+    "durationMinutes": 20,
+    "image": "rain",
+    "description": "A soft rain pattern with distant, rounded thunder to keep your attention anchored.",
+    "sensoryChips": ["Drizzle", "Window Tap", "Low Thunder"]
+  },
+  {
+    "id": "forest_calm",
+    "title": "Forest Drift",
+    "tag": "Calm",
+    "durationMinutes": 15,
+    "image": "forest",
+    "description": "Leaf rustle and gentle birdsong shaped for quiet nervous-system downshifting.",
+    "sensoryChips": ["Breeze", "Canopy", "Birdsong"]
+  },
+  {
+    "id": "night_sleep",
+    "title": "Night Tide",
+    "tag": "Sleep",
+    "durationMinutes": 30,
+    "image": "ocean",
+    "description": "Even, slow ocean pulses with deep-space room tone for bedtime unwinding.",
+    "sensoryChips": ["Tide", "Moonlight", "Salt Air"]
+  },
+  {
+    "id": "mist_reset",
+    "title": "Mountain Mist",
+    "tag": "Reset",
+    "durationMinutes": 12,
+    "image": "mist",
+    "description": "Cool morning atmosphere with distant ridge wind to reset between tasks.",
+    "sensoryChips": ["Mist", "Pine", "Ridge Wind"]
+  },
+  {
+    "id": "fire_calm",
+    "title": "Hearth Room",
+    "tag": "Calm",
+    "durationMinutes": 18,
+    "image": "fire",
+    "description": "A cozy fireplace crackle with warm low ambience for emotional grounding.",
+    "sensoryChips": ["Warmth", "Crackle", "Stillness"]
+  },
+  {
+    "id": "dawn_focus",
+    "title": "Dawn Studio",
+    "tag": "Focus",
+    "durationMinutes": 25,
+    "image": "dawn",
+    "description": "Quiet pre-sunrise room tone and light movement for deep, steady work.",
+    "sensoryChips": ["First Light", "Soft Hum", "Clarity"]
+  }
+]
