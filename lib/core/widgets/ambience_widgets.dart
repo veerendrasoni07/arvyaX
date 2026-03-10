@@ -92,8 +92,7 @@ class AmbienceCard extends StatelessWidget {
                 ),
                 child: SizedBox(
                   width: 112,
-                  height: 96,
-                  child: AmbienceImage(imageKey: ambience.image),
+                  child: AspectRatio(aspectRatio: 1.2,child: AmbienceImage(imageKey: ambience.image)),
                 ),
               ),
             ),
@@ -112,7 +111,9 @@ class AmbienceCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 6),
-                    Row(
+                    Wrap(
+                      spacing: 8,
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         Chip(
                           label: Text(ambience.tag),

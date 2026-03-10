@@ -68,7 +68,7 @@ class AmbienceScreen extends StatelessWidget {
                 SliverAppBar(
                   floating: true,
                   pinned: true,
-                  expandedHeight: 180,
+                expandedHeight: 180,
                   elevation: 0,
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   title: const Text(
@@ -96,6 +96,8 @@ class AmbienceScreen extends StatelessWidget {
                     background: Padding(
                       padding: const EdgeInsets.fromLTRB(16, 90, 16, 16),
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
 
                           /// SEARCH BAR
@@ -122,6 +124,7 @@ class AmbienceScreen extends StatelessWidget {
                           SizedBox(
                             height: 40,
                             child: ListView.separated(
+                              shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               itemCount: ambienceController.tags.length,
                               separatorBuilder: (_, __) => const SizedBox(width: 8),

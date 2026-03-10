@@ -142,7 +142,7 @@ class JournalScreen extends StatelessWidget {
       builder: (_, __, ___) {
         final entries = controller.entries;
         return Scaffold(
-          appBar: AppBar(title: const Text('Journal History')),
+          appBar: AppBar(title: const Text('Journal History',style: TextStyle(fontWeight: FontWeight.bold)),leading: IconButton(onPressed: ()=>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios)),),
           body: Padding(
             padding: const EdgeInsets.all(16),
             child: entries.isEmpty
@@ -161,9 +161,10 @@ class JournalScreen extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        title: Text(entry.ambienceTitle),
+                        title: Text(entry.ambienceTitle,style: TextStyle(fontWeight: FontWeight.bold),),
                         subtitle: Text(
                           '${formatDateTime(entry.createdAt)} • ${entry.mood}\n${preview.isEmpty ? '(No text)' : preview}',
+                          style: TextStyle(color: Colors.grey.shade600,fontWeight: FontWeight.w500),
                         ),
                         isThreeLine: true,
                         onTap: () {
@@ -229,7 +230,7 @@ class JournalEntryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Reflection Entry')),
+      appBar: AppBar(title: const Text('Reflection Entry',style: TextStyle(fontWeight: FontWeight.bold),),leading: IconButton(onPressed: ()=>Navigator.pop(context), icon: Icon(Icons.arrow_back_ios)),),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(
