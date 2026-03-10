@@ -266,23 +266,6 @@ If additional development time (two more days) were available, the following imp
 
 ---
 
-## Background Audio Support
-
-Currently audio stops when the app is closed.
-
-Improvement:
-
-Use background audio support so meditation continues even when the app is minimized.
-
-Possible solution:
-
-
-
-audio_service package
-
-
----
-
 ## Improved UI Animations
 
 Enhance user experience with smoother transitions:
@@ -332,4 +315,5 @@ This project demonstrates:
 - simple but effective state management
 
 The design prioritizes **simplicity, modularity, and maintainability**, making the codebase easy to understand and extend.
+
 
