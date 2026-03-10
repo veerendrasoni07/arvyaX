@@ -266,21 +266,6 @@ If additional development time (two more days) were available, the following imp
 
 ---
 
-## Persistent Storage for Journal Entries
-
-Currently, journal reflections are stored only in memory.
-
-Improvement:
-
-Use a local database such as:
-
-- Hive
-- Isar
-
-This would allow journal entries to persist even after restarting the application.
-
----
-
 ## Background Audio Support
 
 Currently audio stops when the app is closed.
@@ -347,3 +332,4 @@ This project demonstrates:
 - simple but effective state management
 
 The design prioritizes **simplicity, modularity, and maintainability**, making the codebase easy to understand and extend.
+
