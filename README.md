@@ -64,9 +64,9 @@ Repositories provide application data such as ambience sessions and models.
 This structure keeps the application **modular, maintainable, and scalable**.
 
 ---
+## Folder Structure
 
-# Folder Structure
-
+```text
 lib/
 │
 ├── core/
@@ -81,7 +81,6 @@ lib/
 │       └── session_snapshot.dart
 │
 ├── features/
-│
 │   ├── ambience/
 │   │   ├── ambience_screen.dart
 │   │   └── ambience_controller.dart
@@ -95,6 +94,7 @@ lib/
 │       └── journal_controller.dart
 │
 └── main.dart
+```
 
 
 
@@ -316,6 +316,7 @@ This project demonstrates:
 - simple but effective state management
 
 The design prioritizes **simplicity, modularity, and maintainability**, making the codebase easy to understand and extend.
+
 
 
 
