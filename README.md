@@ -70,31 +70,32 @@ This structure keeps the application **modular, maintainable, and scalable**.
 lib/
 │
 ├── core/
-│ └── widgets/
-│ └── ambience_widgets.dart
-| └── formatters.dart
+│   └── widgets/
+│       ├── ambience_widgets.dart
+│       └── formatters.dart
 │
 ├── data/
-│ └── models/
-│ └── ambience.dart
-| └── journal_entry.dart
-| └── session_snapshot.dart
+│   └── models/
+│       ├── ambience.dart
+│       ├── journal_entry.dart
+│       └── session_snapshot.dart
 │
 ├── features/
 │
-│ ├── ambience/
-│ │ ├── ambience_screen.dart
-│ │ └── ambience_controller.dart
-│ │
-│ ├── player/
-│ │ ├── player_screen.dart
-│ │ └── player_controller.dart
-│ │
-│ └── journal/
-│ ├── journal_screen.dart
-│ └── journal_controller.dart
+│   ├── ambience/
+│   │   ├── ambience_screen.dart
+│   │   └── ambience_controller.dart
+│   │
+│   ├── player/
+│   │   ├── player_screen.dart
+│   │   └── player_controller.dart
+│   │
+│   └── journal/
+│       ├── journal_screen.dart
+│       └── journal_controller.dart
 │
 └── main.dart
+
 
 
 ### Folder Responsibilities
@@ -315,5 +316,6 @@ This project demonstrates:
 - simple but effective state management
 
 The design prioritizes **simplicity, modularity, and maintainability**, making the codebase easy to understand and extend.
+
 
 
