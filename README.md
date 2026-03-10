@@ -92,6 +92,10 @@ lib/
 │   └── journal/
 │       ├── journal_screen.dart
 │       └── journal_controller.dart
+├── services/
+│   ├── audia_services.dart
+│   ├── storage_services.dart
+│ 
 │
 └── main.dart
 ```
@@ -316,6 +320,7 @@ This project demonstrates:
 - simple but effective state management
 
 The design prioritizes **simplicity, modularity, and maintainability**, making the codebase easy to understand and extend.
+
 
 
 
