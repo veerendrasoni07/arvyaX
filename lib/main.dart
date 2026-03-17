@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/theme/app_theme.dart';
 import 'data/repositories/ambience_repository.dart';
@@ -33,10 +34,12 @@ void main() async {
   final journalController = JournalController(journalRepository);
 
   runApp(
-    MyApp(
-      ambienceController: ambienceController,
-      playerController: playerController,
-      journalController: journalController,
+    ProviderScope(
+      child: MyApp(
+        ambienceController: ambienceController,
+        playerController: playerController,
+        journalController: journalController,
+      ),
     ),
   );
 }

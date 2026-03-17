@@ -1,4 +1,6 @@
-﻿import 'package:flutter/material.dart';
+﻿import 'package:arvyax/counter_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
 import '../../core/widgets/ambience_widgets.dart';
@@ -6,7 +8,7 @@ import '../../core/widgets/formatters.dart';
 import '../../data/models/ambience.dart';
 import 'player_controller.dart';
 
-class PlayerScreen extends StatefulWidget {
+class PlayerScreen extends ConsumerStatefulWidget {
   const PlayerScreen({
     super.key,
     required this.controller,
@@ -19,10 +21,10 @@ class PlayerScreen extends StatefulWidget {
   final ValueChanged<Ambience> onSessionEnded;
 
   @override
-  State<PlayerScreen> createState() => _PlayerScreenState();
+  ConsumerState<PlayerScreen> createState() => _PlayerScreenState();
 }
 
-class _PlayerScreenState extends State<PlayerScreen>
+class _PlayerScreenState extends ConsumerState<PlayerScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _pulse;
   bool _started = false;
@@ -68,6 +70,7 @@ class _PlayerScreenState extends State<PlayerScreen>
   @override
   Widget build(BuildContext context) {
     final controller = widget.controller;
+    final counter = ref.read(counterProvider.notifier);
     final ambience = controller.current ?? widget.initialAmbience;
     if (ambience == null) {
       return const Scaffold(body: Center(child: Text('No active session found.')));
@@ -158,7 +161,9 @@ class _PlayerScreenState extends State<PlayerScreen>
                     const SizedBox(height: 14),
                     Center(
                       child: FilledButton.icon(
-                        onPressed: controller.togglePlayPause,
+                        onPressed: ()=>{
+                          controller.togglePlayPause(),
+                        },
                         icon: Icon(
                           controller.isPlaying
                               ? Icons.pause_circle
@@ -253,6 +258,7 @@ class MiniPlayerBar extends StatelessWidget {
               animation: controller,
               builder: (_, __) {
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Row(
@@ -276,6 +282,14 @@ class MiniPlayerBar extends StatelessWidget {
                         ),
                       ],
                     ),
+                    Row(
+                      mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("${controller.elapsed}"),
+                        Text("${controller.total}")
+                      ],
+                    ),
+                    const SizedBox(height: 8,),
                     LinearProgressIndicator(value: max == 0 ? 0 : (value / max)),
                   ],
                 );

@@ -1,4 +1,6 @@
-﻿import 'package:flutter/material.dart';
+﻿import 'package:arvyax/counter_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/models/ambience.dart';
 
@@ -50,7 +52,7 @@ class AmbienceImage extends StatelessWidget {
   }
 }
 
-class AmbienceCard extends StatelessWidget {
+class AmbienceCard extends ConsumerWidget {
   const AmbienceCard({
     super.key,
     required this.ambience,
@@ -60,8 +62,12 @@ class AmbienceCard extends StatelessWidget {
   final Ambience ambience;
   final VoidCallback onTap;
 
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final counter = ref.watch(counterProvider.notifier);
+
+    final count = counter.getCounterData(ambience.id);
     return InkWell(
       borderRadius: BorderRadius.circular(14),
       onTap: onTap,
@@ -121,6 +127,8 @@ class AmbienceCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text('${ambience.durationMinutes} min',style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w600),),
+                        const SizedBox(width: 8),
+                        Text('Played: ${count}',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),)
                       ],
                     ),
                   ],
